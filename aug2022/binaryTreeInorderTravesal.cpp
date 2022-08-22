@@ -16,7 +16,8 @@ struct TreeNode {
   int val;
   TreeNode *left;
   TreeNode *right;
-  //without args, take 0 as default
+  // func doesn't need semicolon in the end
+  // without args, take 0 as default
   TreeNode() : val(0), left(nullptr), right(nullptr) {}
   // one arg
   TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
@@ -37,6 +38,7 @@ public:
       else
       {
         recur(root->left, res);
+        // arg: root root.val
         res.push_back(root->val);
         recur(root->right, res);
       }
@@ -59,6 +61,7 @@ public:
   // refer to obj from another function too
   vector<int> inorderTraversal(TreeNode *root) {
     vector<int> res;
+    // asterisk *: a stack of pointers instead of a copy of the obj
     vector<TreeNode*> stack;
     // when assign vals, *curr is the pointer type to the val
     TreeNode *curr = root;
@@ -75,7 +78,7 @@ public:
       // pop_back remove and destroy the last
       curr = stack[stack.size()-1];
       stack.pop_back();
-      // curr: a pointer curr points to val of itself
+      // curr: a pointer curr points to val of itself curr.val
       res.push_back(curr->val);
       // curr points to right
       curr = curr->right;
@@ -87,7 +90,7 @@ public:
 
 // inp = [1,null,2,3]
 int main(int argc, char* argv[]) {
-  //new: create to assign to a pointer, need to delete manually
+  // new: struct as pointers, need to be deleted manually
   // TreeNode*pval3 = new TreeNode(3, nullptr, nullptr);
   TreeNode*pval3 = new TreeNode(3);
   TreeNode*pval2 = new TreeNode(2, pval3, nullptr);
