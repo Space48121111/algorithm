@@ -24,7 +24,7 @@ base case recursion DFS O(2^n)
 cache dynamic programming memoization
 tree bottom up from base case(sub problems) all the way to the root
 store into an array, each being solved once O(n)
-Fibonacci sequence O(c)
+fibonacci sequence O(c)
 8 5 3 2 1 1
 
 '''
