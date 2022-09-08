@@ -33,7 +33,7 @@ public:
       return true;
     if (!root->left && !root->right)
       return true;
-    else if (!root-> left || !root->right)
+    if (!root-> left || !root->right)
       return false;
 
     queue<TreeNode*> queue;
