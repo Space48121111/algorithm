@@ -66,7 +66,7 @@ public:
       int end = (*it)[2];
 
       // minHeap[end, num]
-      // when the trip ends, drop off num
+      // keep adding num, as soon as the trip ends, drop off num
       while (minHeap.size()>0 && minHeap[0][0] <= start)
       {
         curr -= minHeap[0][1];
@@ -80,6 +80,8 @@ public:
     }
     return true;
   }
+
+  // & reference, similiar to pointer, not a copy
   bool carPooling2(vector<vector<int> > &trips, int capacity) {
     // find the largest end stop
     int end = 0;
@@ -92,16 +94,18 @@ public:
     }
     for (int j=0; j<end; j++)
     {
-      int c = 0;
+      // set to 0 for each j
+      int curr = 0;
       for (int i=0; i<trips.size(); i++)
       {
         if (j >= trips[i][1] && j <= trips[i][2])
         {
-          c += trips[i][0];
+          curr += trips[i][0];
         }
+        if (curr > capacity)
+          return false;
       }
-      if (c > capacity)
-        return false;
+
     }
     return true;
   }
