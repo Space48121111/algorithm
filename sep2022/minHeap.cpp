@@ -35,12 +35,12 @@ public:
       deltaNum[end] -= num;
     }
     int curr = 0;
-    for (int i=0; i<=1000; i++)
+    for (int i=0; i<1001; i++)
     {
       curr += deltaNum[i];
       if (curr > capacity)
       {
-        // cout << curr << " " << i << endl;
+        cout << curr << " " << i << endl;
         return false;
       }
     }
@@ -66,7 +66,9 @@ public:
       int end = (*it)[2];
 
       // minHeap[end, num]
-      // keep adding num, as soon as the trip ends, drop off num
+      // [[2,1,5],[3,3,7], [1,6,8]]
+      // if end > start, keep addint num to curr
+      // base case: when end <= start, the trip ends, drop off from curr
       while (minHeap.size()>0 && minHeap[0][0] <= start)
       {
         curr -= minHeap[0][1];
@@ -77,6 +79,8 @@ public:
       if (curr > capacity)
         return false;
       minHeap.push_back(vector<int> {end, num});
+      // [(5, 2), (7, 5)] [(7, 3), (8, 1)]
+
     }
     return true;
   }
@@ -94,27 +98,27 @@ public:
     }
     for (int j=0; j<end; j++)
     {
-      // set to 0 for each j
+      // reset after each eval
       int curr = 0;
       for (int i=0; i<trips.size(); i++)
       {
         if (j >= trips[i][1] && j <= trips[i][2])
         {
           curr += trips[i][0];
+          if (curr > capacity)
+            return false;
         }
-        if (curr > capacity)
-          return false;
       }
-
     }
     return true;
   }
 };
 
 int main(int argc, char* argv[]) {
-  vector<int> trips1{2,1,5};
-  vector<int> trips2{3,3,7};
-  vector<vector<int> > trips{trips1, trips2};
+  vector<int> trip1{2, 1, 5};
+  vector<int> trip2{3, 3, 7};
+  vector<int> trip3{1, 6, 8};
+  vector<vector<int> > trips{trip1, trip2, trip3};
   int capacity = 4;
   Solution sol;
   bool res = sol.carPooling(trips, capacity);
