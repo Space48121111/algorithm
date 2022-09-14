@@ -16,13 +16,16 @@ if trip[n].end > trip[m].start
 
 class Solution {
 public:
+
+  // delta: create 1001 trips array with the delta num and iterate 1001 times
+
   bool carPooling(vector<vector<int> > &trips, int capacity) {
     // static array
-    int deltaNum[1001];
+    int delta[1001];
     // memory memset(ptr, val, num)
     // bytes int sizeof 4
     // memset (str,'-',6); sizeof 1
-    memset(deltaNum, 0, 1001*sizeof(int));
+    memset(delta, 0, 1001*sizeof(int));
     // cout << sizeof(int) << endl;
 
     for (vector<vector<int> >::iterator it=trips.begin(); it != trips.end(); it++)
@@ -31,13 +34,13 @@ public:
       int start = (*it)[1];
       int end = (*it)[2];
       // [[2,1,5],[3,3,7]]
-      deltaNum[start] += num;
-      deltaNum[end] -= num;
+      delta[start] += num;
+      delta[end] -= num;
     }
     int curr = 0;
     for (int i=0; i<1001; i++)
     {
-      curr += deltaNum[i];
+      curr += delta[i];
       if (curr > capacity)
       {
         cout << curr << " " << i << endl;
@@ -47,8 +50,10 @@ public:
     return true;
   }
 
-  static bool comp(vector<int> i1, vector<int> i2) {
-    return i1[1] < i2[1];
+  // minheap: sort, put [end, num], pop out the first one if end <= start O(nlogn)
+
+  static bool comp(vector<int> i, vector<int> j) {
+    return i[1] < j[1];
   }
   bool carPooling1(vector<vector<int> > &trips, int capacity) {
     sort(trips.begin(), trips.end(), comp);
@@ -85,18 +90,19 @@ public:
     return true;
   }
 
+  // brutal force: curr iterate over each (start[i] to end[j]) O(n^2)
   // & reference, similiar to pointer, not a copy
   bool carPooling2(vector<vector<int> > &trips, int capacity) {
-    // find the largest end stop
+    // use the largest end stop
     int end = 0;
-    for (int i=0; i<trips.size(); i++)
+    for (int j=0; i<trips.size(); i++)
     {
-      if (trips[i][2] > end)
+      if (trips[j][2] > end)
       {
-        end = trips[i][2];
+        end = trips[j][2];
       }
     }
-    for (int j=0; j<end; j++)
+    for (int j=1; j<=end; j++)
     {
       // reset after each eval
       int curr = 0;
