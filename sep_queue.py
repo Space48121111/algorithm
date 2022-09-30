@@ -6,30 +6,30 @@ class TreeNode:
 
 class Solution:
     def isSymmetric(self, root):
-        def recur(self, left, right):
+        def recur(left, right):
             if left==None and right==None:
                 return True
             if left==None or right==None:
                 return False
             if left.val != right.val:
                 return False
-            return (recur(left.left, right.right) && recur(left.right, right.left))
+            return (recur(left.left, right.right) and recur(left.right, right.left))
         return recur(root, root)
 
 class Solution1:
     def isSymmetric(self, root):
         if root == None:
             return True
-        if !root.left and !root.right:
+        if root.left == None and root.right == None:
             return True
-        if !root.left or !root.right:
+        if root.left == None or root.right == None:
             return False
 
         queue = []
         queue.append(root)
         queue.append(root)
 
-        left, right = TreeNode(left), TreeNode(right)
+        left, right = TreeNode(), TreeNode()
 
         while len(queue):
             left = queue[0]
@@ -42,12 +42,12 @@ class Solution1:
             if left.left and right.right:
                 queue.append(left.left)
                 queue.append(right.right)
-            if left.left or right.right:
+            elif left.left or right.right:
                 return False
             if left.right and right.left:
                 queue.append(left.right)
                 queue.append(right.left)
-            if left.right or right.left:
+            elif left.right or right.left:
                 return False
         return True
 
