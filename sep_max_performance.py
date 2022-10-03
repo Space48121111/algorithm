@@ -3,6 +3,8 @@ import heapq
 class Solution:
     def maxPerformance(self, n, eff, spd, k):
         eng = []
+
+        #transpose
         for eff, spd in zip(eff, spd):
             eng.append([eff, spd])
         eng.sort(reverse=True)
